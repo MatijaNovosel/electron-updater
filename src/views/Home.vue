@@ -1,21 +1,36 @@
 <template>
   <div class="column items-center justify-center full-height full-width">
     <q-btn class="base_btn" color="blue" dense @click="checkForUpdates"> Check for updates </q-btn>
-    <q-btn class="base_btn q-mt-md" color="green" dense @click="update"> Update </q-btn>
-    <div class="q-mt-lg">Version {{ version }}</div>
+    <q-btn :disable="upToDate" class="base_btn q-mt-md" color="green" dense @click="update">
+      Update
+    </q-btn>
+    <div class="q-mt-lg">App version {{ version }}</div>
+    <div class="q-mt-sm">Remote version {{ newestVersion }}</div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import axios from "axios";
+import { computed, onMounted, ref } from "vue";
 
-const version = ref(import.meta.env.VITE_APP_VERSION);
+const version = ref<string>("");
+const newestVersion = ref<string>("");
 
-const checkForUpdates = () => {
-  return "1.0.0";
+const checkForUpdates = async () => {
+  const response = await axios.get<string>(
+    "https://raw.githubusercontent.com/MatijaNovosel/misc/refs/heads/master/version.txt"
+  );
+  newestVersion.value = response.data.trim();
 };
+
+const upToDate = computed(() => version.value === newestVersion.value);
 
 const update = () => {
   //
 };
+
+onMounted(async () => {
+  version.value = import.meta.env.VITE_APP_VERSION;
+  await checkForUpdates();
+});
 </script>
