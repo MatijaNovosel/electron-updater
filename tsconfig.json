@@ -1,0 +1,52 @@
+{
+  "extends": "@quasar/app-vite/tsconfig-preset",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
+    "jsx": "preserve",
+    "importHelpers": true,
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "noImplicitAny": false,
+    "emitDecoratorMetadata": false,
+    "allowImportingTsExtensions": false,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "useDefineForClassFields": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
+    "resolveJsonModule": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "types": ["node"],
+    "lib": ["esnext", "dom", "DOM.Iterable"]
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "src/**/*.json",
+    "tests/**/*.ts",
+    "tests/**/*.tsx",
+    "src/**/*.d.ts",
+    "src/shared/models/mapDarkTheme.json",
+    "src-pwa/*.ts",
+    "src-pwa/*.js",
+    "src/shared/api/services/synchronizationService.ts",
+    "src/shared/api/interfaces/synchronizationService.ts"
+  ],
+  "exclude": [
+    "dist/**/*",
+    ".quasar",
+    "node_modules",
+    "src-capacitor",
+    "src-cordova",
+    "quasar.config.*.temporary.compiled*"
+  ]
+}
