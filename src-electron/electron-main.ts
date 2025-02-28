@@ -1,4 +1,5 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from "electron";
+import updater from "electron-simple-updater";
 import { release } from "node:os";
 import os from "os";
 import path from "path";
@@ -65,7 +66,41 @@ function createWindow() {
   });
 }
 
-app.whenReady().then(createWindow);
+ipcMain.handle("getBuild", () => updater.buildId);
+
+ipcMain.handle("getVersion", () => updater.version);
+
+ipcMain.handle("checkForUpdates", () => {
+  updater.checkForUpdates();
+});
+
+ipcMain.handle("downloadUpdate", () => {
+  updater.downloadUpdate();
+});
+
+ipcMain.handle("quitAndInstall", () => {
+  updater.quitAndInstall();
+});
+
+ipcMain.handle("setOption", (_, opt, val) => {
+  updater.setOptions(opt, val);
+});
+
+app.whenReady().then(() => {
+  updater.init({
+    checkUpdateOnStart: false,
+    autoDownload: false,
+    logger: {
+      info(...args) {
+        console.log("info: ", args);
+      },
+      warn(...args) {
+        console.log("warn: ", args);
+      }
+    }
+  });
+  createWindow();
+});
 
 app.on("window-all-closed", () => {
   if (platform !== "darwin") {
