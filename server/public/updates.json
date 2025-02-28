@@ -1,0 +1,8 @@
+{
+  "win32-x64-prod": {
+    "readme": "Testing release",
+    "update": "http://localhost:8080",
+    "install": "http://localhost:8080/Update.tests.Setup.1.0.0.exe",
+    "version": "1.0.0"
+  }
+}
