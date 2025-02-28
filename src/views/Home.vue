@@ -17,16 +17,15 @@ const version = ref<string>("");
 const newestVersion = ref<string>("");
 
 const checkForUpdates = async () => {
-  const response = await axios.get<string>(
-    "https://raw.githubusercontent.com/MatijaNovosel/misc/refs/heads/master/version.txt"
-  );
+  await window.electronAPI.checkForUpdates();
+  const response = await axios.get<string>("http://localhost:8080/version.txt");
   newestVersion.value = response.data.trim();
 };
 
 const upToDate = computed(() => version.value === newestVersion.value);
 
-const update = () => {
-  //
+const update = async () => {
+  await window.electronAPI.update();
 };
 
 onMounted(async () => {

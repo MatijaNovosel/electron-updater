@@ -25,28 +25,15 @@ export default configure(() => {
       cssAddon: true,
       config: {
         ripple: {}
-      },
-      plugins: ["Loading", "Dialog"]
-    },
-    animations: [],
-    ssr: {
-      prodPort: 3000,
-      middlewares: ["render"],
-      pwa: false
-    },
-    capacitor: {
-      hideSplashscreen: true
-    },
-    bex: {
-      contentScripts: ["my-content-script"]
+      }
     },
     electron: {
-      bundler: "packager",
-      packager: {
-        asar: true,
-        overwrite: true,
-        platform: "win32",
-        name: "OBU"
+      bundler: "builder",
+      builder: {
+        appId: "com.matija.updater",
+        win: {
+          target: ["squirrel"]
+        }
       }
     }
   };

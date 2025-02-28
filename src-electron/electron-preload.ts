@@ -1,4 +1,4 @@
-import { contextBridge } from "electron";
+import { contextBridge, ipcRenderer } from "electron";
 
 function domReady(condition: DocumentReadyState[] = ["complete", "interactive"]) {
   return new Promise((resolve) => {
@@ -104,5 +104,14 @@ domReady().then(() => {
 });
 
 contextBridge.exposeInMainWorld("electronAPI", {
-  notifyAppLoaded: removeLoading
+  notifyAppLoaded: removeLoading,
+  update: () => {
+    ipcRenderer.invoke("downloadUpdate");
+  },
+  quitAndInstall: () => {
+    ipcRenderer.invoke("quitAndInstall");
+  },
+  checkForUpdates: () => {
+    ipcRenderer.invoke("checkForUpdates");
+  }
 });

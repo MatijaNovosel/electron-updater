@@ -1,4 +1,5 @@
 import { app, BrowserWindow, globalShortcut, ipcMain, shell } from "electron";
+import log from "electron-log";
 import updater from "electron-simple-updater";
 import { release } from "node:os";
 import os from "os";
@@ -87,15 +88,19 @@ ipcMain.handle("setOption", (_, opt, val) => {
 });
 
 app.whenReady().then(() => {
+  log.initialize();
   updater.init({
+    url: "http://localhost:8080/updates.json",
     checkUpdateOnStart: false,
     autoDownload: false,
     logger: {
       info(...args) {
         console.log("info: ", args);
+        log.info(args);
       },
       warn(...args) {
         console.log("warn: ", args);
+        log.warn(args);
       }
     }
   });
