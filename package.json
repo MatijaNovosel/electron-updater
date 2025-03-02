@@ -10,7 +10,6 @@
     "dev": "quasar dev",
     "dev:electron": "quasar dev -m electron",
     "build": "quasar build",
-    "kurcina": "electron-builder",
     "build:desktop": "rimraf dist && quasar build -m electron"
   },
   "dependencies": {
